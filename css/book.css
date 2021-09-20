@@ -63,6 +63,7 @@ img {
 .off-canvas-content {
     height: 100%;
     font-family: sans-serif;
+    padding: 36px;
 }
 
 .off-canvas-content .book-content {
@@ -70,7 +71,7 @@ img {
     margin-top: 20px;
 }
 
-@media all and (max-width: 1279px) {
+@media all and (max-width: 1500px) {
     .off-canvas-content .book-content {
         padding: 0rem 0.75rem;
     }
@@ -292,7 +293,7 @@ img {
     }
 }
 
-@media all and (min-width: 960px) and (max-width: 1279px) {
+@media all and (min-width: 960px) and (max-width: 1500px) {
     .off-canvas-content .book-post-info {
         max-width: 8.5rem;
     }
@@ -390,8 +391,9 @@ img {
     }
 }
 
-@media all and (min-width: 960px) and (max-width: 1279px) {
+@media all and (min-width: 1280px) and (max-width: 1500px) {
     .off-canvas-content {
+        margin-left: 11rem;
         padding: 1.8rem 1.5rem;
     }
 }
@@ -419,7 +421,7 @@ img {
     }
 }
 
-@media all and (max-width: 1279px) {
+@media all and (max-width: 1500px) {
     .book-navbar {
         display: block;
     }
@@ -448,7 +450,7 @@ img {
     }
 }
 
-@media all and (max-width: 1279px) {
+@media all and (max-width: 1500px) {
     .book-sidebar {
         transform: translateX(-200%);
         width: 11rem;
@@ -605,7 +607,7 @@ img {
     }
 }
 
-@media all and (max-width: 1279px) {
+@media all and (max-width: 1500px) {
     #navbar {
         display: block;
     }
@@ -617,13 +619,13 @@ img {
     }
 }
 
-@media all and (max-width: 1279px) {
+@media all and (max-width: 1500px) {
     .side-blank {
         display: none;
     }
 }
 
-@media all and (max-width: 1279px) {
+@media all and (max-width: 1500px) {
     .book-sidebar .book-menu {
         position: fixed;
         top: 3.25rem;
@@ -672,6 +674,35 @@ img {
     padding-left: 15px;
 }
 
+.card-2 {
+    box-shadow: 0 0px 1px rgb(0 0 0 / 16%), 0 0px 3px rgb(0 0 0 / 16%);
+    border-block-end-style: none;
+    padding: 13px;
+    background: #fff;
+    border-radius: 3px;
+    margin: 1rem;
+    position: relative;
+}
+
+.card-2:hover {
+    box-shadow: 0 0px 1px rgb(0 0 0 / 16%), 0 0px 3px rgb(0 0 0 / 16%);
+    border-width: medium;
+}
+
 .pagination {
-    margin-top: 65px;
+    margin-top: 50px;
+}
+
+.pag .card .columns {
+    padding: 5px;
+    flex-wrap: nowrap;
+}
+
+@media all and (max-width: 959px) {
+    .pagination {
+        display: block;
+    }
+    .pag {
+        width: 100%;
+    }
 }

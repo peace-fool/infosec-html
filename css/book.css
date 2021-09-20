@@ -638,9 +638,8 @@ img {
     border-radius: 0.3rem;
 }
 
-.code {
-    /* font-family: monospace; */
-    color: #e6ecf1;
+.code-p {
+    overflow:auto;
     font-weight: 100;
     font-size: 14px;
 }
@@ -648,26 +647,7 @@ img {
 .code-card {
     background-color: #182f54;
     margin-bottom: 1rem;
-}
-
-.quote-cont {
-    position: relative;
-}
-
-.dashes {
-    width: 3px;
-    height: 100%;
-    position: absolute;
-    background-color: #c7c7c7;
-    float: left;
-}
-
-.quote p {
-    color: #797878;
-}
-
-.quote {
-    padding-left: 15px;
+    color: #e6ecf1;
 }
 
 .card-2 {

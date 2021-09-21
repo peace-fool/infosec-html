@@ -59,7 +59,7 @@
                     <div class="column col-7">
                         <div class="book-brand">
                             <a href="/peacefool/">
-                                <!-- <img src="pp.webp"> -->
+                                <!-- <img class="img-responsive" src="pp.webp"> -->
                                 <h3>Infosec Blog</h3>
                             </a>
                         </div>
@@ -103,7 +103,7 @@
                         <div class="book-post">
                             <!-- content start -->
                             <h1 id="Heading">HTB Previse w/o Metasploit</h1>
-                            <img src="/peacefool/activebox/Previse/previse.webp" alt="HackTheBox Previse Machine">
+                            <img class="img-responsive" src="/peacefool/activebox/Previse/previse.webp" alt="HackTheBox Previse Machine">
                             <h2 id="recon">Reconnaissance</h2>
                             <p>First, we run nmap scan to check for open ports and the service running on them.</p>
                             <!-- Code Snippet -->
@@ -177,7 +177,7 @@ Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
                             <h2 id="enum">Enumeration</h2>
 
                             <p>Visiting the site on browser.</p>
-                            <img src="/peacefool/activebox/Previse/1.webp" alt="Login Page/Landing Page">
+                            <img class="img-responsive" src="/peacefool/activebox/Previse/1.webp" alt="Login Page/Landing Page">
                             <p>We don't have any credentials to work with right now.</p>
                             <p>Let's run a quick gobuster scan to find if there are any other pages of interest.</p>
                             <!-- Code Snippet -->
@@ -188,15 +188,15 @@ Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
                                 </div>
                             </div>
                             <p>Result :</p>
-                            <img src="/peacefool/activebox/Previse/2.webp" alt="Gobuster Result">
+                            <img class="img-responsive" src="/peacefool/activebox/Previse/2.webp" alt="Gobuster Result">
                             <p>Here index.php is being redirected to login.php</p>
                             <p>Let's Intercept the request to index.php with burp.</p>
-                            <img src="/peacefool/activebox/Previse/3.webp" alt="Burpsuite Request Intercept">
+                            <img class="img-responsive" src="/peacefool/activebox/Previse/3.webp" alt="Burpsuite Request Intercept">
                             <p>Following the request in Burp repeater, we can see that the website uses redirection to
                                 the login page as an Access Control mechanism.</p>
                             <p>We also found some interesting links in the above response.</p>
                             <p>Let's check accounts.php</p>
-                            <img src="/peacefool/activebox/Previse/4.webp"
+                            <img class="img-responsive" src="/peacefool/activebox/Previse/4.webp"
                                 alt="Intercepting accounts page with Burpsuite">
                             <p>It seems like we can add a new account for ourselves.</p>
                             <p>We can do this in 2 ways :</p>
@@ -214,7 +214,7 @@ username=[name]&password=[password]&confirm=[password]&submit
 </pre>
                                 </div>
                             </div>
-                            <img src="/peacefool/activebox/Previse/5.webp" alt="Adding a user by making a POST request">
+                            <img class="img-responsive" src="/peacefool/activebox/Previse/5.webp" alt="Adding a user by making a POST request">
                             <h3 id="mettwo">Method 2 :</h3>
                             <ol>
                                 <li>
@@ -227,10 +227,10 @@ username=[name]&password=[password]&confirm=[password]&submit
                                     Forward the request.
                                 </li>
                             </ol>
-                            <img src="/peacefool/activebox/Previse/6.webp"
+                            <img class="img-responsive" src="/peacefool/activebox/Previse/6.webp"
                                 alt="Intercepting account page request with burpsuite">
                             <p>Change "302 Found" to "200 OK" and forward the request.</p>
-                            <img src="/peacefool/activebox/Previse/7.webp"
+                            <img class="img-responsive" src="/peacefool/activebox/Previse/7.webp"
                                 alt="Modifing and forwarding account page request with burpsuite">
                             <blockquote>
                                 <p><code>302 Found</code> redirect status response code indicates that the resource
@@ -239,19 +239,19 @@ username=[name]&password=[password]&confirm=[password]&submit
                                     succeeded. A 200 response is cacheable by default.</p>
                             </blockquote>
                             <p>Add an account and log in.</p>
-                            <img src="/peacefool/activebox/Previse/8.webp" alt="logging in with our credentials">
+                            <img class="img-responsive" src="/peacefool/activebox/Previse/8.webp" alt="logging in with our credentials">
                             <p>Once in, we can look around different pages. In the Files tab, we can find
                                 SITEBACKUP.ZIP, which we can download.</p>
-                            <img src="/peacefool/activebox/Previse/9.webp" alt="downloading sitebackup.zip file">
+                            <img class="img-responsive" src="/peacefool/activebox/Previse/9.webp" alt="downloading sitebackup.zip file">
                             <p>Looking inside the files, I come across config.php, which has MySQL credentials
                                 hardcoded.</p>
                             <p>This will be useful later on.</p>
-                            <img src="/peacefool/activebox/Previse/10.webp"
+                            <img class="img-responsive" src="/peacefool/activebox/Previse/10.webp"
                                 alt="unziping and exploring sitebackup.zip, looking at config.php file">
                             <p>Digging in further, I find logs.php</p>
                             <p>Here we can see, the website uses the exec() command which uses unsanitized input
                                 parameters.</p>
-                            <img src="/peacefool/activebox/Previse/11.webp"
+                            <img class="img-responsive" src="/peacefool/activebox/Previse/11.webp"
                                 alt="looking at logs.php file to find a code injection vulnerability">
                             <h2 id="user">Gaining an Initial Foothold</h2>
                             <p>We can intercept the request from the file_logs.php page with burp and inject a reverse
@@ -276,7 +276,7 @@ username=[name]&password=[password]&confirm=[password]&submit
                             <blockquote>
                                 <p>Select the code and press <code>Ctrl+u</code> to URL encode it.</p>
                             </blockquote>
-                            <img src="/peacefool/activebox/Previse/12.webp"
+                            <img class="img-responsive" src="/peacefool/activebox/Previse/12.webp"
                                 alt="Spawnning a reverse shell from code injection">
                             <p>We are in as www-data</p>
                             <p>Let's improve our shell a bit</p>
@@ -298,7 +298,7 @@ Enter password: mySQL_p@ssw0rd!:)
 </pre>
                                 </div>
                             </div>
-                            <img src="/peacefool/activebox/Previse/13.png"
+                            <img class="img-responsive" src="/peacefool/activebox/Previse/13.png"
                                 alt="finding hashed credentials in mysql database">
                             <p>Let's crack the hash!</p>
                             <!-- Code Snippet -->
@@ -308,7 +308,7 @@ Enter password: mySQL_p@ssw0rd!:)
 </pre>
                                 </div>
                             </div>
-                            <img src="/peacefool/activebox/Previse/14.png"
+                            <img class="img-responsive" src="/peacefool/activebox/Previse/14.png"
                                 alt="cracking the hashed password with john the ripper">
                             <p>We can now ssh into the machine with the above credentials.</p>
                             <!-- Code Snippet -->
@@ -320,7 +320,7 @@ Enter password: mySQL_p@ssw0rd!:)
                             </div>
                             <p>Enter the password when prompted and we are in!</p>
                             <p>Let's get the user.txt flag.</p>
-                            <img src="/peacefool/activebox/Previse/15.png" alt="user credentials">
+                            <img class="img-responsive" src="/peacefool/activebox/Previse/15.png" alt="user credentials">
                             <h2 id="privesc">Privilege Escalation</h2>
                             <p>Let's first list out the sudo commands for our user.</p>
                             <!-- Code Snippet -->
@@ -330,15 +330,15 @@ Enter password: mySQL_p@ssw0rd!:)
 </pre>
                                 </div>
                             </div>
-                            <img src="/peacefool/activebox/Previse/16.webp"
+                            <img class="img-responsive" src="/peacefool/activebox/Previse/16.webp"
                                 alt="sudo commands available to user account">
                             <p>We have sudo permissions for a shell script. Let's see its content.</p>
-                            <img src="/peacefool/activebox/Previse/17.webp"
+                            <img class="img-responsive" src="/peacefool/activebox/Previse/17.webp"
                                 alt="checking the content of access_backup.sh file">
                             <p>The script uses gzip command. Since it uses a relative path we can modify the $PATH
                                 variable to include a path to a directory of which we have write permissions (Example:
                                 /tmp).</p>
-                            <img src="/peacefool/activebox/Previse/18.webp" alt="Changing PATH in our machine">
+                            <img class="img-responsive" src="/peacefool/activebox/Previse/18.webp" alt="Changing PATH in our machine">
                             <p>There we can create a new poisoned gzip binary and execute access_backup.sh file.</p>
                             <p>First, let's run a Netcat listener.</p>
                             <!-- Code Snippet -->
@@ -358,11 +358,11 @@ sudo /opt/scripts/access_backup.sh
 </pre>
                                 </div>
                             </div>
-                            <img src="/peacefool/activebox/Previse/19.webp"
+                            <img class="img-responsive" src="/peacefool/activebox/Previse/19.webp"
                                 alt="reverse netcat shell to our attack machine">
                             <p>We are root!</p>
                             <p>Let's grab the root flag.</p>
-                            <img src="/peacefool/activebox/Previse/20.png" alt="root flag">
+                            <img class="img-responsive" src="/peacefool/activebox/Previse/20.png" alt="root flag">
 
                             <!-- content end -->
                         </div>
@@ -402,7 +402,7 @@ sudo /opt/scripts/access_backup.sh
                                 <!-- Author image -->
                                 <div class="author-img">
                                     <figure class="avatar avatar-lg">
-                                        <img src="/peacefool/pp.webp" alt="...">
+                                        <img class="img-responsive" src="/peacefool/pp.webp" alt="...">
                                     </figure>
                                 </div>
                                 <!-- Author title -->

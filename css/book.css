@@ -201,6 +201,10 @@ img {
 }
 
 .off-canvas-content .book-content .book-post img {
+    border-style: solid;
+    border-width: thin;
+    border-radius: 2px;
+    margin-bottom: 20px;
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -639,7 +643,7 @@ img {
 }
 
 .code-p {
-    overflow:auto;
+    overflow: auto;
     font-weight: 100;
     font-size: 14px;
 }

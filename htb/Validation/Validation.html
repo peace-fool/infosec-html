@@ -112,6 +112,7 @@
                                 </figcaption>
                             </figure>
                             <h2 id="recon">Reconnaissance</h2>
+                            <h3 id="nmap">Nmap Scan</h3>
                             <p>First, we run nmap scan to check for open ports and the service running on them.</p>
                             <!-- Code Snippet -->
                             <div class="card s-rounded code-card">
@@ -165,6 +166,7 @@ Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel</pre>
                             <p>Nothing interseting comes up hunting for CVE for the service versions running.</p>
                             <p>Let's dig into the website on port 80.</p>
                             <h2 id="enum">Enumeration</h2>
+                            <h3 id="webpage">Webpage Enumeration</h3>
                             <p>Landing Page</p>
                             <img src="/htb/Validation/1.png" alt="landing page of website">
                             <p>Got redirected to another page which is supposed to have logs of other people.</p>
@@ -172,8 +174,9 @@ Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel</pre>
                             <p>Let's try for SQL injection here.</p>
                             <p>Maybe we can get some interesting info from the database.</p>
                             <img src="/htb/Validation/3.png" alt="first SQL attempt">
-                            <p>Looks like a failed SQL injection, whole of the query statement got taken in as the input
-                                i.e. nothing escaped the input field.</p>
+                            <p>Looks like a failed SQL injection, whole of the query statement got taken in as the input</p>
+                                <p>That is nothing escaped the input field.</p>
+                            <h3 id="burp">Intercepting request with burpsuite</h3>
                             <img src="/htb/Validation/4.png" alt="Burp request">
                             <p>Intersepting the POST request in buptsuit we can see the "country" input we can meddle
                                 with with SQL injection.</p>
@@ -198,6 +201,7 @@ Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel</pre>
                             </div>
                             <p>Trying the same query again with a different username and country made it work.</p>
                             <img src="/htb/Validation/6.png" alt="Second try with different username and country">
+                            <h3>UNION based SQL injection</h3>
                             <p>Let's try some UNION based SQL queries.</p>
                             <p>First let's determine the number of columns</p>
                             <!-- Code Snippet -->
@@ -249,6 +253,7 @@ username=utkc2&country=Algeria' UNION SELECT user() #
                             <p>Let's get a reverse shell now.</p>
                             <img src="/htb/Validation/11.png" alt="not netcat">
                             <p>The machine dosen't have netcat.</p>
+                            <h3>Reverse Shell</h3>
                             <p>We can go to <a
                                     href="https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md">PayloadsAllTheThings</a>
                                 to try some reverse shells.</p>
@@ -284,7 +289,7 @@ username=utkc2&country=Algeria' UNION SELECT user() #
                             <img src="/htb/Validation/15.png" alt="root flag">
                             <p>It worked!</p>
                             <p>We got the root flag.</p>
-                            <h2>Lesson Learned</h2>
+                            <h4>Lesson Learned</h4>
                             <p>HackTheBox: Validation is an Easy Linux Box that is good for beginners to practice their
                                 SQL injection skills.</p>
                             <p>This box seems to be focused on Web Penetration and is pretty relaxed on the Privesc

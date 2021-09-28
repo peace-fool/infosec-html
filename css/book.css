@@ -686,3 +686,12 @@ img {
         width: 100%;
     }
 }
+
+.accordion .accordion-header {
+    padding: 0rem;
+}
+
+.accordion .accordion-header .icon {
+    font-size: 10px;
+    color: #696969;
+}

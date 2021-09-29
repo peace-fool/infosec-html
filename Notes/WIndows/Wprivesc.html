@@ -61,7 +61,7 @@
                             </a>
                         </div>
 
-<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+                        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~START~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
                         <!-- side nav -->
                         <div class="book-menu">
@@ -128,7 +128,7 @@
 
                         <!-- side nav end -->
 
-<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+                        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~END~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
                     </div>
                 </div>
@@ -142,11 +142,150 @@
                     <div class="book-content">
                         <div class="book-post">
 
-                            <!-- Content -->
+                            <!-- Content ///////////////////////////////////////-->
 
                             <h1 id="WinPrivesc">Windows Privilege Escalation</h1>
+                            <h2 id="basic">Basic System Enumeration</h2>
+                            <p>System/User/Group Enumeration</p>
+                            <!-- Code Snippet -->
+                            <div class="card s-rounded code-card">
+                                <div class="card-body">
+                                    <!-- char [ < , &lt; ] -->
+                                    <pre class="code-p"># Basics
+systeminfo
+hostname
 
-                            <!-- content end -->
+# Who am I?
+whoami
+echo %username%
+
+# User/Group/Privilages info
+whoami /all
+
+# What users/localgroups are on the machine?
+net users
+net localgroups
+
+# More info about a specific user. Check if user has privileges.
+net user user1
+
+# View Domain Groups
+net group /domain
+
+# View Members of Domain Group
+net group /domain &lt;Group Name>
+
+# How well patched is the system?
+wmic qfe get Caption,Description,HotFixID,InstalledOn
+
+# Listing Connected Drives
+wmic logicaldisk get caption,description,providername</pre>
+                                </div>
+                            </div>
+                            <p>Network Enumeration</p>
+                            <!-- Code Snippet -->
+                            <div class="card s-rounded code-card">
+                                <div class="card-body">
+                                    <!-- char [ < , &lt; ] -->
+                                    <pre class="code-p"># Network
+ipconfig /all
+route print
+
+# Listing all Internal and External Network 
+# with thier Corresponding IP and Port
+netstat -ano
+
+# (ARP) Address Resolution Protocol
+# ARP is a protocol or procedure that connects an ever-changing IP -
+# address to a MAC address, in a local-area network (LAN).
+arp -A</pre>
+                                </div>
+                            </div>
+                            <p>Firewall/Antivirus Enumeration</p>
+                            <!-- Code Snippet -->
+                            <div class="card s-rounded code-card">
+                                <div class="card-body">
+                                    <!-- char [ < , &lt; ] -->
+                                    <pre class="code-p"># Firewall
+netsh firewall show state
+netsh firewall show config
+
+# AV
+sc query windefend
+sc queryex type= service</pre>
+                                </div>
+                            </div>
+                            <h3 id="clstextpass">Clear Text Passwords</h3>
+                            <p>Generig Searching</p>
+                            <!-- Code Snippet -->
+                            <div class="card s-rounded code-card">
+                                <div class="card-body">
+                                    <!-- char [ < , &lt; ] -->
+                                    <pre class="code-p">findstr /si password *.txt
+findstr /si password *.xml
+findstr /si password *.ini
+
+#Find all those strings in config files.
+dir /s *pass* == *cred* == *vnc* == *.config*
+
+# Find all passwords in all files.
+findstr /spin "password" *.*
+findstr /spin "password" *.*</pre>
+                                </div>
+                            </div>
+                            <p>Common File to look in (could be Base64 encoded)</p>
+                            <!-- Code Snippet -->
+                            <div class="card s-rounded code-card">
+                                <div class="card-body">
+                                    <!-- char [ < , &lt; ] -->
+                                    <pre class="code-p">c:\sysprep.inf
+c:\sysprep\sysprep.xml
+c:\unattend.xml
+%WINDIR%\Panther\Unattend\Unattended.xml
+%WINDIR%\Panther\Unattended.xml
+
+dir c:\*vnc.ini /s /b
+dir c:\*ultravnc.ini /s /b 
+dir c:\ /s /b | findstr /si *vnc.ini</pre>
+                                </div>
+                            </div>
+                            <p>Searching Registry</p>
+                            <!-- Code Snippet -->
+                            <div class="card s-rounded code-card">
+                                <div class="card-body">
+                                    <!-- char [ < , &lt; ] -->
+                                    <pre class="code-p"># VNC
+reg query "HKCU\Software\ORL\WinVNC3\Password"
+
+# Windows autologin
+reg query "HKLM\SOFTWARE\Microsoft\Windows NT\Currentversion\Winlogon"
+
+# SNMP Paramters
+reg query "HKLM\SYSTEM\Current\ControlSet\Services\SNMP"
+
+# Putty
+reg query "HKCU\Software\SimonTatham\PuTTY\Sessions"
+
+# Search for password in registry
+reg query HKLM /f password /t REG_SZ /s
+reg query HKCU /f password /t REG_SZ /s</pre>
+                                </div>
+                            </div>
+                            <h2 id="windexpsuggest">Windows Exploit Suggester</h2>
+                            <p>pending</p>
+                            <!-- Refrences -->
+
+                            <h2>Refrences</h2>
+                            <a
+                                href="https://sushant747.gitbooks.io/total-oscp-guide/content/privilege_escalation_windows.html">https://sushant747.gitbooks.io/total-oscp-guide/content/privilege_escalation_windows.html</a>
+                            <a
+                                href="https://www.fuzzysecurity.com/tutorials/16.html">https://www.fuzzysecurity.com/tutorials/16.html</a>
+                            <a
+                                href="https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Windows%20-%20Privilege%20Escalation.md">https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Windows%20-%20Privilege%20Escalation.md</a><br>
+                            <a
+                                href="https://www.absolomb.com/2018-01-26-Windows-Privilege-Escalation-Guide/">https://www.absolomb.com/2018-01-26-Windows-Privilege-Escalation-Guide/</a>
+
+                            <!-- content end ///////////////////////////////////////-->
 
                         </div>
                         <br>

@@ -10,16 +10,15 @@
     gtag('js', new Date());
     gtag('config', 'G-GTPQRVRV1B');
   </script>
+  <!-- Add description -->
+  <meta name="description" content="#">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
   <link rel="icon" href="/favicon.png" />
   <title>
-    Hack the box: Validation Writeup | Easy Box
+    Template
   </title>
   <!-- Spectre.css framework -->
-  <!-- <link rel="stylesheet" href="/css/spectre/spectre.min.css">
-  <link rel="stylesheet" href="/css/spectre/spectre-exp.min.css">
-  <link rel="stylesheet" href="/css/spectre/spectre-icons.min.css"> -->
   <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
   <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
   <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
@@ -61,6 +60,7 @@
                 <h3>Infosec Blog</h3>
               </a>
             </div>
+
             <!-- side nav -->
             <div class="book-menu">
               <ul>
@@ -70,14 +70,34 @@
                 <a href="#" class="headerlink" title="Categories"></a>
                 Categories
               </h2>
-              <h2 id="Hack-The-Box-Write-ups">
-                <a href="#" class="headerlink" title="Hack The Box Write-ups"></a>
-                Write-ups
+              <h2 id="Notes">
+                <a href="#" class="headerlink" title="Notes"></a>
+                Notes
               </h2>
               <ul>
-                <li><a href="/htb/first.html">One</a></li>
-                <!-- <li><a href="/htb/two.html">Two</a></li> -->
-                <!-- <li><a href="#">Three</a></li> -->
+                <li>
+                  <details class="accordion">
+                    <summary class="accordion-header">
+                      <i class="icon icon-arrow-right mr-1"></i>
+                      Tools
+                    </summary>
+                    <div class="accordion-body">
+                      <!-- Accordions content -->
+                      <ul>
+                        <li>
+                          <a href="/Notes/Tools/grep.html">Grep</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </details>
+                </li>
+              </ul>
+              <h2 id="Hack-The-Box-Write-ups">
+                <a href="#" class="headerlink" title="Hack The Box Write-ups"></a>
+                HTB Write-ups
+              </h2>
+              <ul>
+                <li><a href="/htb/Validation/Validation.html">Validation</a></li>
               </ul>
               <h2 id="Wizard-Labs-Write-ups">
                 <a href="#" class="headerlink" title="Wizard Labs Write-ups"></a>
@@ -85,9 +105,10 @@
               </h2>
               <ul>
                 <li><a href="/activebox/Previse/Previse.html">Previse w/o Metasploit</a></li>
-                <!-- <li><a href="/activebox/Two/two.html">Two</a></li> -->
               </ul>
             </div>
+
+            <!-- side nav end -->
           </div>
         </div>
       </div>
@@ -102,36 +123,67 @@
 
               <!-- Content -->
 
-              <h1 id="hello">Box Name</h1>
-              <p>Yet to come</p>
+              <h1 id="hello">Template</h1>
+              <h2 id="second">Code Snippet</h2>
+
+              <!-- Code Snippet -->
+              <div class="card s-rounded code-card">
+                <div class="card-body">
+                  <!-- char [ < , &lt; ] -->
+                  <pre class="code-p">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto porro tenetur possimus fuga?</pre>
+                </div>
+              </div>
+
+              <h2 id="third">Quotes</h2>
+
+              <!-- Quotes -->
+              <blockquote>
+                <p>Stupid is as stupid does.</p>
+                <cite>- Someone Stupid</cite>
+              </blockquote>
+
+              <h2 id="four">List</h2>
+              <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Debitis, hic.</p>
+              <ul>
+                <li>
+                  <p><b>-sC:</b> default scripts</p>
+                </li>
+                <li>
+                  <p><b>-sV:</b> version detection</p>
+                </li>
+              </ul>
 
               <!-- content end -->
 
             </div>
             <br>
+
             <!-- pagination -->
+
             <div class="columns col-oneline col-gapless pagination">
               <div class="column col-6 pag">
-                <a href="/index.html">
+                <a href="#">
                   <div class="card card-2">
                     <div class="columns">
                       <div class="column col-1"><i class="icon icon-back"></i></div>
-                      <div class="column col-11 text-right">About Me</div>
+                      <div class="column col-11 text-right">previous</div>
                     </div>
                   </div>
                 </a>
               </div>
               <div class="column col-6 pag">
-                <a href="/activebox/Previse/Previse.html">
+                <a href="#">
                   <div class="card card-2">
                     <div class="columns">
-                      <div class="column col-11">Previse</div>
+                      <div class="column col-11">Next</div>
                       <div class="column col-1 text-right"><i class="icon icon-forward"></i></div>
                     </div>
                   </div>
                 </a>
               </div>
             </div>
+
+            <!-- Pagination end -->
 
             <div class="book-comments"></div>
           </div>
@@ -167,9 +219,7 @@
             <script src="/js/book-toc.js"></script>
           </div>
         </div>
-
       </div>
-
     </div>
     <a class="off-canvas-overlay" onclick="hide_canvas()"></a>
   </div>

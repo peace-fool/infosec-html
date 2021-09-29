@@ -639,7 +639,7 @@ img {
 }
 
 .s-rounded {
-    border-radius: 0.3rem;
+    border-radius: 0.15rem;
 }
 
 .code-p {
@@ -694,4 +694,11 @@ img {
 .accordion .accordion-header .icon {
     font-size: 10px;
     color: #696969;
+}
+
+.card .card-body:last-child {
+    padding-left: .8rem;
+    padding-right: .8rem;
+    padding-bottom: 0;
+    padding-top: 0;
 }

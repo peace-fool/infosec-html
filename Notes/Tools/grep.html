@@ -10,14 +10,15 @@
         gtag('js', new Date());
         gtag('config', 'G-GTPQRVRV1B');
     </script>
-    <meta name="description"
-        content="This is a infosec blog website to which I made to keep track of my progress and post quality writeups.">
+    <!-- Add description -->
+    <meta name="description" content="#">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
     <link rel="icon" href="/favicon.png" />
     <title>
-        About Me
+        Box Two
     </title>
+    <!-- Spectre.css framework -->
     <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
     <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
     <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
@@ -56,10 +57,10 @@
                     <div class="column col-7">
                         <div class="book-brand">
                             <a href="/">
-                                <!-- <img src="pp.webp"> -->
                                 <h3>Infosec Blog</h3>
                             </a>
                         </div>
+
                         <!-- side nav -->
                         <div class="book-menu">
                             <ul>
@@ -97,8 +98,6 @@
                             </h2>
                             <ul>
                                 <li><a href="/htb/Validation/Validation.html">Validation</a></li>
-                                <!-- <li><a href="/htb/two.html">Two</a></li>
-                <li><a href="#">Three</a></li> -->
                             </ul>
                             <h2 id="Wizard-Labs-Write-ups">
                                 <a href="#" class="headerlink" title="Wizard Labs Write-ups"></a>
@@ -106,9 +105,10 @@
                             </h2>
                             <ul>
                                 <li><a href="/activebox/Previse/Previse.html">Previse w/o Metasploit</a></li>
-                                <!-- <li><a href="/activebox/Two/two.html">Two</a></li> -->
                             </ul>
                         </div>
+
+                        <!-- side nav end -->
                     </div>
                 </div>
             </div>
@@ -120,15 +120,77 @@
                 <div class="column col-8 col-lg-12">
                     <div class="book-content">
                         <div class="book-post">
-                            <!-- content start -->
-                            <h1>Coming Soon</h1>
-                            <br>
-                            <p>peace_fool</p>
+
+                            <!-- Content -->
+
+                            <h1 id="hello">Templete</h1>
+                            <h2 id="second">Code Snippet</h2>
+
+                            <!-- Code Snippet -->
+                            <div class="card s-rounded code-card">
+                                <div class="card-body">
+                                    <!-- char [ < , &lt; ] -->
+                                    <pre class="code-p">cnskklncnklskndssknsknlsk</pre>
+                                </div>
+                            </div>
+
+                            <h2 id="third">Quotes</h2>
+
+                            <!-- Quotes -->
+                            <blockquote>
+                                <p>The advance of technology is based on making it fit in so that you don't really even
+                                    notice it, so
+                                    it's part of everyday life. </p>
+                                <cite>- Bill Gates</cite>
+                            </blockquote>
+
+                            <h2 id="four">List</h2>
+                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Debitis, hic.</p>
+                            <ul>
+                                <li>
+                                    <p><b>-sC:</b> default scripts</p>
+                                </li>
+                                <li>
+                                    <p><b>-sV:</b> version detection</p>
+                                </li>
+                            </ul>
+
                             <!-- content end -->
+
                         </div>
+                        <br>
+
+                        <!-- pagination -->
+
+                        <div class="columns col-oneline col-gapless pagination">
+                            <div class="column col-6 pag">
+                                <a href="#">
+                                    <div class="card card-2">
+                                        <div class="columns">
+                                            <div class="column col-1"><i class="icon icon-back"></i></div>
+                                            <div class="column col-11 text-right">previous</div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="column col-6 pag">
+                                <a href="#">
+                                    <div class="card card-2">
+                                        <div class="columns">
+                                            <div class="column col-11">Next</div>
+                                            <div class="column col-1 text-right"><i class="icon icon-forward"></i></div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Pagination end -->
+
                         <div class="book-comments"></div>
                     </div>
                 </div>
+                <!-- rsidebar -->
                 <div class="column col-4 hide-lg col-mx-auto">
                     <div class="book-post-info">
                         <div class="book-post-meta">
@@ -163,6 +225,7 @@
         </div>
         <a class="off-canvas-overlay" onclick="hide_canvas()"></a>
     </div>
+
     <script src="/js/book.js"></script>
 </body>
 

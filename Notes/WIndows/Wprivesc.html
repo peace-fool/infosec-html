@@ -87,7 +87,7 @@
                                             <!-- Accordions content -->
                                             <ul>
                                                 <li>
-                                                    <a href="/Notes/Tools/grep.html">Grep</a>
+                                                    <a href="/Notes/Tools/processes.html">Jobs & Processes</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -145,6 +145,23 @@
                             <!-- Content ///////////////////////////////////////-->
 
                             <h1 id="WinPrivesc">Windows Privilege Escalation</h1>
+                            <h2 id="maps">Mind Maps</h2>
+                            <ul>
+                                <li>
+                                    <a
+                                        href="https://raw.githubusercontent.com/C0nd4/OSCP-Priv-Esc/main/images/Windows%20Privilege%20Escalation.png">Conda's
+                                        Map</a>
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://gblobscdn.gitbook.com/assets%2F-LWg2cVMMih6fWmHw12y%2F-LcbNQD9PL57V7tVLdBU%2F-Lcbc8OFwU6rwkG-DY8J%2FWindows%20Enumeration%20and%20Privilege%20Escalation.png?alt=media&token=207b95ff-127a-4e5b-a721-07fbc527b8b3&__cf_chl_jschl_tk__=pmd_Py4en8hen9oRiWo29FuuYydTnvFGcC4gpmPtu2EIwwE-1633504661-0-gqNtZGzNAxCjcnBszQgl">Hackabean's
+                                        Map</a>
+                                </li>
+                                <li>
+                                    <a href="https://avasdream.engineer/assets/OSCP-Methodology.png">Avasdream's Total
+                                        OSCP Mind Map </a>
+                                </li>
+                            </ul>
                             <h2 id="basic">Basic System Enumeration</h2>
                             <p>System/User/Group Enumeration</p>
                             <!-- Code Snippet -->
@@ -271,8 +288,37 @@ reg query HKLM /f password /t REG_SZ /s
 reg query HKCU /f password /t REG_SZ /s</pre>
                                 </div>
                             </div>
-                            <h2 id="windexpsuggest">Windows Exploit Suggester</h2>
-                            <p>pending</p>
+
+                            <h2 id="kernal">Kernal Exploits</h2>
+                            <p>This should be the last resort as it could potentially make the machine unstable or introduce some problems in the machine.</p>
+                            <p>Enumeration can be done through Windows-Exploit-Suggester tool.</p>
+                            <p>Manual Enumeration</p>
+                            <!-- Code Snippet -->
+                            <div class="card s-rounded code-card">
+                                <div class="card-body">
+                                    <!-- char [ < , &lt; ] -->
+                                    <pre class="code-p">systeminfo
+//or
+wmic qfe get Caption,Description,HotFixID,InstalledOn</pre>
+                                </div>
+                            </div>
+                            <p>This will get us the hotfixes/patches.</p>
+                            <p>Most kernal exploits can be gound in the git link: <a href="https://github.com/SecWiki/windows-kernel-exploits">Windows kernal
+                                    exploits</a></p>
+
+                            <h2 id="Internalorportforwarding">Internal Services and Port Forwarding</h2>
+                            <p></p>
+
+                            <h2 id="Autotools">Automated Tools</h2>
+                            <ul>
+                                <li>
+                                    <a href="https://github.com/AonCyberLabs/Windows-Exploit-Suggester">Windows Exploit
+                                        Suggester</a>
+                                </li>
+                                <li>
+                                    <a href="https://github.com/carlospolop/PEASS-ng/tree/master/winPEAS">WinPEAS</a>
+                                </li>
+                            </ul>
                             <!-- Refrences -->
 
                             <h2>Refrences</h2>
